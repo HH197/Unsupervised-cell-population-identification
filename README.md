@@ -16,7 +16,7 @@ Since genes (features) expressed in less than a certain number of cells (samples
 
 ## Dimension Reduction
 
-For the purpose of dimension reduction, we have used principal component analysis (PCA) and two different types of autoencoders.
+For dimension reduction, we have used principal component analysis (PCA) and two different types of autoencoders.
 
 ### PCA 
 
@@ -24,11 +24,14 @@ We have chosen 1,024 high variable genes among the ~15,000 and 3,005 cells as th
 
 ### Autoencoder
 
-We have used vanilla and Deep autoencoders. The vanilla autoencoder has 256 input features (genes), one hidden layer with a size of 32, and an output of the same size as the input. In the Deep autoencoder, the size of the input features is 3,000, which is the same as the output. The Deep autoencoder consists of 2 hidden layers with sizes 1,024 and 16, respectively. 
+We have used vanilla and Deep autoencoders. The vanilla autoencoder has 3000 input features (genes), one hidden layer with a size of 32, and an output of the same size as the input. In the Deep autoencoder, the size of the input features is the same as in the vanilla autoencoder. The Deep autoencoder consists of 2 hidden layers with sizes 1,024 and 16, respectively. 
 
-In all autoencoders, the activation functions used in the encoding and decoding layers are the rectified linear unit (ReLU) with the leak of 0.1. A linear activation was used for the embedding layer of our models.
+In all autoencoders, the activation functions used in the encoding and decoding layers are the rectified linear unit (ReLU) with leak = 0.1. A linear activation was used for the embedding layer of our models. The structure of our designed autoencoders is as follows: 
 
-We used a batch size of 256 for training. The training processes of our models are quite similar, with the difference in the number of epochs. For the vanilla and Deep autoencoders, we used 450 and 150 epochs, respectively. ADAM was chosen as the optimizer with a learning rate of 0.001 and mean root squared error as the loss function. 
+
+
+
+We split the data into the train (80%) and test (20%) sets with a batch size of 128 for training. The training processes of our models are quite similar. ADAM was chosen as the optimizer with a learning rate of 0.001 and mean root squared error as the loss function. We used early stopping to avoid overfitting with a patience of 4, i.e., if the test loss is not decreased after 4 epochs, it stops the training procedure. 
 
 
 ## Clustering
@@ -37,18 +40,35 @@ The CORTEX data set ([GSE60361](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?a
 
 As clustering is an unsupervised task, the number of clusters is unknown. The Silhouette score is used to evaluate the quality of clustering, which takes a value between -1 and 1. We used the elbow point, i.e., the point at which the silhouette score afterward drops dramatically, as the number of clusters. 
 
-We performed clustering on the latent space of PCA and autoencoders. We used K-means and spectral clustering, along with three different clustering metrics: Normalized Mutual Information (NMI), Adjusted Rand Index (ARI), and Average Silhouette Width (ASW).
+We performed clustering on the latent space of PCA and autoencoders. We used K-means and three different clustering metrics: Normalized Mutual Information (NMI), Adjusted Rand Index (ARI), and Average Silhouette Width (ASW).
 
 ## Results
 
-### PCA + K-means
+### PCA
 
-### Vanilla AutoEncoder + K-means
+To decide how many eigenvalues/eigenvectors to keep (i.e., how many components to keep), we used the accumulated explained variance plot. The plot will provide a good indication of when one hits the point of diminishing returns (i.e., negligible variance is gained by retaining additional eigenvalues). This point will be considered as the number of components. In other words, the elbow point of the accumulated explained variance is considered as the number of components. 
 
-### Vanilla AutoEncoder + Spectral Clustering
+The following figure shows the ratio of the explained variance. Since the elbow point of the plot is around 10 components, we kept 10 components.
 
-### Deep AutoEncoder + K-means
+Then we applied K-means to the PCA's latent space. Using the following plot, which shows the Silhouette score for a specific number of clusters, we detected 7 clusters. The NMI, ARI, and ASW scores are 0.56, 0.47, and 0.31, respectively. 
 
-### Deep AutoEncoder + Spectral Clustering
 
+These findings show that we have not achieved high accuracy in the task of cell identification when applying PCA followed by K-means. Therefore, we tried other methods of dimension reduction.
+
+### Vanilla AutoEncoder
+
+We applied K-means to the latent space. The NMI, ARI, and ASW scores are 0.48, 0.31, and 0.27, respectively, showing that we have not achieved high accuracy in the task of cell identification. Therefore, we tried a deep autoencoder for dimension reduction. 
+
+### Deep AutoEncoder
+
+We applied K-means to the latent space. The NMI, ARI, and ASW scores are 0.79, 0.73, and 0.24, respectively, showing that we have achieved high accuracy in the task of cell identification. 
+
+  
 ### Comparison
+
+We compared the ability of PCA, vanilla autoencoder, and deep autoencoder latent spaces. We applied K-means with same paramters on their latent variables. We found that deep autoencoder has the best performace in emphasizing the differences of cell populations in its latent space.   
+
+
+## Discussion
+
+Cell-type and cell-state identification are one of the crucial parts of the single-cell analysis. Different approaches implemented in this study show promising results in identifying several cell-types in the mouse cortex data set. The deep autoencoder achieved high scores since its latent space captures complex biological information, which leads to the distinction between the cell types. We also tried wider and deeper models; still, the results did not outperform our deep autoencoder approach. Finally, before performing dimension reduction, we transformed the data to logarithmic scale, which is not encouraged in some cases. 
