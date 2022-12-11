@@ -42,6 +42,13 @@ We performed clustering on the latent space of PCA and autoencoders. We used K-m
 ## Results
 
 ### PCA + K-means
-###
 
+### Vanilla AutoEncoder + K-means
 
+### Vanilla AutoEncoder + Spectral Clustering
+
+### Deep AutoEncoder + K-means
+
+### Deep AutoEncoder + Spectral Clustering
+
+### Comparison
