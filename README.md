@@ -26,7 +26,12 @@ We have chosen 1,024 high variable genes among the ~15,000 and 3,005 cells as th
 
 We have used vanilla and Deep autoencoders. The vanilla autoencoder has 3000 input features (genes), one hidden layer with a size of 32, and an output of the same size as the input. In the Deep autoencoder, the size of the input features is the same as in the vanilla autoencoder. The Deep autoencoder consists of 2 hidden layers with sizes 1,024 and 16, respectively. 
 
-In all autoencoders, the activation functions used in the encoding and decoding layers are the rectified linear unit (ReLU) with leak = 0.1. A linear activation was used for the embedding layer of our models. The structure of our designed autoencoders is as follows: 
+In all autoencoders, the activation functions used in the encoding and decoding layers are the rectified linear unit (ReLU) with leak = 0.1. A linear activation was used for the embedding layer of our models. The structure of our designed autoencoders is as follows:
+
+<p align="center">
+<img width="600" height="300" src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/AE.png" >
+</p>
+
 
 We split the data into the train (80%) and test (20%) sets with a batch size of 128 for training. The training processes of our models are quite similar. ADAM was chosen as the optimizer with a learning rate of 0.001 and mean root squared error as the loss function. We used early stopping to avoid overfitting with a patience of 4, i.e., if the test loss is not decreased after 4 epochs, it stops the training procedure. 
 
@@ -46,8 +51,15 @@ To decide how many eigenvalues/eigenvectors to keep (i.e., how many components t
 
 The following figure shows the ratio of the explained variance. Since the elbow point of the plot is around 10 components, we kept 10 components.
 
+<p align="center">
+<img src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/PCA_EX_Var.png" >
+</p>
+
 Then we applied K-means to the PCA's latent space. Using the following plot, which shows the Silhouette score for a specific number of clusters, we detected 7 clusters. The NMI, ARI, and ASW scores are 0.56, 0.47, and 0.31, respectively. 
 
+<p align="center">
+<img src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/PCA_sli.png" >
+</p>
 
 These findings show that we have not achieved high accuracy in the task of cell identification when applying PCA followed by K-means. Therefore, we tried other methods of dimension reduction.
 
@@ -55,11 +67,21 @@ These findings show that we have not achieved high accuracy in the task of cell 
 
 We trained the vanilla autoencoder using the method described in (link). The following figure shows the train and test losses during the training process:
 
+<p align="center">
+<img src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/loss_vanilla.png" >
+</p>
+
+
 We applied K-means to the latent space. The NMI, ARI, and ASW scores are 0.48, 0.31, and 0.27, respectively, showing that we have not achieved high accuracy in the task of cell identification. Therefore, we tried a deep autoencoder for dimension reduction. 
 
 ### Deep AutoEncoder
 
 We trained the deep autoencoder using the method described in (link). The following figure shows the train and test losses during the training process:
+
+<p align="center">
+<img src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/loss_deep.png" >
+</p>
+
 
 We applied K-means to the latent space. The NMI, ARI, and ASW scores are 0.79, 0.73, and 0.24, respectively, showing that we have achieved high accuracy in the task of cell identification. 
 
@@ -68,6 +90,9 @@ We applied K-means to the latent space. The NMI, ARI, and ASW scores are 0.79, 0
 
 We compared the ability of PCA, vanilla autoencoder, and deep autoencoder latent spaces. We applied K-means with same paramters on their latent variables. We found that deep autoencoder has the best performace in emphasizing the differences of cell populations in its latent space.   
 
+<p align="center">
+<img src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/comparison.png" >
+</p>
 
 ## Discussion
 
