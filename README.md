@@ -52,13 +52,13 @@ To decide how many eigenvalues/eigenvectors to keep (i.e., how many components t
 The following figure shows the ratio of the explained variance. Since the elbow point of the plot is around 10 components, we kept 10 components.
 
 <p align="center">
-<img width="308" height="175" src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/PCA_EX_Var.png" >
+<img  src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/PCA_EX_Var.png" >
 </p>
 
 Then we applied K-means to the PCA's latent space. Using the following plot, which shows the Silhouette score for a specific number of clusters, we detected 7 clusters. The NMI, ARI, and ASW scores are 0.56, 0.47, and 0.31, respectively. 
 
 <p align="center">
-<img width="308" height="175" src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/PCA_sli.png" >
+<img  src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/PCA_sli.png" >
 </p>
 
 These findings show that we have not achieved high accuracy in the task of cell identification when applying PCA followed by K-means. Therefore, we tried other methods of dimension reduction.
@@ -68,7 +68,7 @@ These findings show that we have not achieved high accuracy in the task of cell 
 We trained the vanilla autoencoder using the method described in (link). The following figure shows the train and test losses during the training process:
 
 <p align="center">
-<img width="308" height="175" src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/loss_vanilla.png" >
+<img src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/loss_vanilla.png" >
 </p>
 
 
@@ -79,7 +79,7 @@ We applied K-means to the latent space. The NMI, ARI, and ASW scores are 0.48, 0
 We trained the deep autoencoder using the method described in (link). The following figure shows the train and test losses during the training process:
 
 <p align="center">
-<img width="308" height="175" src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/loss_deep.png" >
+<img  src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/loss_deep.png" >
 </p>
 
 
@@ -91,7 +91,7 @@ We applied K-means to the latent space. The NMI, ARI, and ASW scores are 0.79, 0
 We compared the ability of PCA, vanilla autoencoder, and deep autoencoder latent spaces. We applied K-means with same paramters on their latent variables. We found that deep autoencoder has the best performace in emphasizing the differences of cell populations in its latent space.   
 
 <p align="center">
-<img width="308" height="175" src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/comparison.png" >
+<img src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/comparison.png" >
 </p>
 
 ## Discussion
