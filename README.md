@@ -1,5 +1,20 @@
 # Unsupervised Cell Population Identification
 
+  * [Introduction](#introduction)
+  * [Data](#data)
+  * [Pre-processing](#pre-processing)
+  * [Dimension Reduction](#dimension-reduction)
+    + [PCA](#pca)
+    + [Autoencoder](#autoencoder)
+  * [Clustering](#clustering)
+  * [Results](#results)
+    + [PCA](#pca-1)
+    + [Vanilla AutoEncoder](#vanilla-autoencoder)
+    + [Deep AutoEncoder](#deep-autoencoder)
+    + [Comparison](#comparison)
+  * [Discussion](#discussion)
+
+## Introduction
 Different cells can have various behavior during their life spans, and these behavioral differences are represented in their molecular landscapes, such as their transcriptomics. Thanks to the high-throughput sequencing of whole transcriptomes (RNA-seq), single-cell transcriptomics is now emerging as a powerful approach to studying cell variations on genomic level. Single-cell RNA-seq (scRNA-seq) has enabled the study of different compositions in complex tissues, such as cell types and states. However, processing scRNA-seq data is still a challenge due to high dimensionality, heterogeneity, low signal-to-noise ratio (SNR), artifacts, batch effects, dropouts, and sparsity (See this [link](https://github.com/HH197/Deep-Generative-Modeling-and-Probabilistic-Dimension-Reduction#challenges-in-analyzing-single-cell-rna-eq-data)).
 
 Cell type identification usually is one of the critical goals of scRNA-seq data analysis. This identification is typically a clustering problem. Groups identified in an unsupervised manner are annotated to cell types. However, clustering single cells based on their gene expression level is complicated considering the curse of high dimensionality, low SNR, and artifacts. Consequently, scRNA-seq data analysis frequently involves pre-processing, feature selection, and dimension reduction before the clustering step.
@@ -65,7 +80,7 @@ These findings show that we have not achieved high accuracy in the task of cell 
 
 ### Vanilla AutoEncoder
 
-We trained the vanilla autoencoder using the method described in (link). The following figure shows the train and test losses during the training process:
+We trained the vanilla autoencoder using the method described in [Autoencoder](#autoencoder). The following figure shows the train and test losses during the training process:
 
 <p align="center">
 <img src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/loss_vanilla.png" >
@@ -76,7 +91,7 @@ We applied K-means to the latent space. The NMI, ARI, and ASW scores are 0.48, 0
 
 ### Deep AutoEncoder
 
-We trained the deep autoencoder using the method described in (link). The following figure shows the train and test losses during the training process:
+We trained the deep autoencoder using the method described in [Autoencoder](#autoencoder). The following figure shows the train and test losses during the training process:
 
 <p align="center">
 <img  src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/loss_deep.png" >
