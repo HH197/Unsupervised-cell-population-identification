@@ -19,7 +19,7 @@ Different cells can have various behavior during their life spans, and these beh
 
 
 <p align="center">
-<img width="480" height="120" src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/project_pic.png" >
+<img width="480" height="150" src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/project_pic.png" >
 </p>
 
 
