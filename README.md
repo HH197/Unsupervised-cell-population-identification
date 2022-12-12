@@ -22,7 +22,7 @@ Different cells can have various behavior during their life spans, and these beh
 <img width="480" height="150" src="https://github.com/HH197/Unsupervised-cell-population-identification/blob/main/Figures/project_pic.png" >
 </p>
 
-Figure adopted from [Ianevski et al.](https://www.nature.com/articles/s41467-022-28803-w).
+Figure adopted from [Ianevski et al.](https://www.nature.com/articles/s41467-022-28803-w)
 
 Cell type identification usually is one of the critical goals of scRNA-seq data analysis. This identification is typically a clustering problem. Groups identified in an unsupervised manner are annotated to cell types. However, clustering single cells based on their gene expression level is complicated considering the curse of high dimensionality, low SNR, and artifacts. Consequently, scRNA-seq data analysis frequently involves pre-processing, feature selection, and dimension reduction before the clustering step.
 
